@@ -33,7 +33,7 @@ install:
     elseif ($isWindows)
     {
       choco install nasm
-      set PATH="C:\Program Files\NASM";%PATH%
+      $env:Path += ";C:\Program Files\NASM"
     }
 
 before_build:
