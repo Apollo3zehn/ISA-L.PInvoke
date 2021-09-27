@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Intel.ISAL.PInvoke\Intel.ISAL.PInvoke.csproj" />
+    <ProjectReference Include="..\..\src\Intel.ISA-L.PInvoke\Intel.ISA-L.PInvoke.csproj" />
   </ItemGroup>
 
 </Project>

@@ -4,7 +4,7 @@
 
   <PropertyGroup>
     <PackageLicenseExpression Condition="$(PackageLicenseExpression) == ''">BSD-3-Clause</PackageLicenseExpression>
-    <PackageProjectUrl Condition="$(PackageProjectUrl) == ''">https://github.com/Apollo3zehn/Intel.ISAL.PInvoke</PackageProjectUrl>
+    <PackageProjectUrl Condition="$(PackageProjectUrl) == ''">https://github.com/Apollo3zehn/Intel.ISA_L.PInvoke</PackageProjectUrl>
   </PropertyGroup>
 
 </Project>

@@ -26,9 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{15DEDCE6
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{2B4BA2BB-B561-4301-A1B9-9E59E58BE8EF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.ISAL.PInvoke", "src\Intel.ISAL.PInvoke\Intel.ISAL.PInvoke.csproj", "{5355AFFA-5B8B-4D74-B14B-1CCE540E3C3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.ISA-L.PInvoke", "src\Intel.ISA-L.PInvoke\Intel.ISA-L.PInvoke.csproj", "{5355AFFA-5B8B-4D74-B14B-1CCE540E3C3B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.ISAL.PInvoke.Tests", "tests\Intel.ISAL.PInvoke.Tests\Intel.ISAL.PInvoke.Tests.csproj", "{03BC8652-8086-40A0-854D-C77D743A0958}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Intel.ISA-L.PInvoke.Tests", "tests\Intel.ISA-L.PInvoke.Tests\Intel.ISA-L.PInvoke.Tests.csproj", "{03BC8652-8086-40A0-854D-C77D743A0958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

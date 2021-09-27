@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <Description>An inofficial .NET Standard wrapper for the Intel Intelligent Storage Acceleration Library (ISA-L).</Description>
+    <Description>An inofficial .NET Standard wrapper for the Intel Intelligent Storage Acceleration Library (ISA-L, 64-bit only).</Description>
     <PackageTags>Intel ISA-L PInvoke .NETStandard Windows Linux</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -12,42 +12,46 @@
     <IsLinux Condition="'$([System.Runtime.InteropServices.RuntimeInformation]::IsOSPlatform($([System.Runtime.InteropServices.OSPlatform]::Linux)))' == 'True'">True</IsLinux>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(IsPublicBuild)' == 'True'">
-    <Content Include="./../../artifacts/download/bin32/isal.dll" Link="runtimes/win-x86/native/isal.dll">
+    <!-- <Content Include="./../../artifacts/download/bin32/isa-l.dll" Link="runtimes/win-x86/native/isa-l.dll">
       <PackagePath>runtimes/win-x86/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="./../../artifacts/download/bin64/isal.dll" Link="runtimes/win-x64/native/isal.dll">
+    </Content> -->
+    <Content Include="./../../artifacts/download/bin64/isa-l.dll" Link="runtimes/win-x64/native/isa-l.dll">
       <PackagePath>runtimes/win-x64/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="./../../artifacts/bin32/blosc/libisal.so" Link="runtimes/linux-x86/native/libisal.so">
+    <!-- <Content Include="./../../artifacts/bin32/libisa-l.so" Link="runtimes/linux-x86/native/libisa-l.so">
       <PackagePath>runtimes/linux-x86/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="./../../artifacts/bin64/blosc/libisal.so" Link="runtimes/linux-x64/native/libisal.so">
+    </Content> -->
+    <Content Include="./../../artifacts/bin64/libisa-l.so" Link="runtimes/linux-x64/native/libisa-l.so">
       <PackagePath>runtimes/linux-x64/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsPublicBuild)' == '' AND $(IsWindows) == 'True'">
-    <Content Include="./../../artifacts/bin32/blosc/Release/isal.dll" Link="runtimes/win-x86/native/isal.dll">
+    <!-- <Content Include="./../../artifacts/bin32/isa-l.dll" Link="runtimes/win-x86/native/isa-l.dll">
       <PackagePath>runtimes/win-x86/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="./../../artifacts/bin64/blosc/Release/isal.dll" Link="runtimes/win-x64/native/isal.dll">
+    </Content> -->
+    <Content Include="./../../artifacts/bin64/isa-l.dll" Link="runtimes/win-x64/native/isa-l.dll">
       <PackagePath>runtimes/win-x64/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup Condition="'$(IsPublicBuild)' == '' AND $(IsLinux) == 'True'">
-    <Content Include="./../../artifacts/bin32/blosc/libisal.so" Link="runtimes/linux-x86/native/libisal.so">
+    <!-- <Content Include="./../../artifacts/bin32/libisa-l.so" Link="runtimes/linux-x86/native/libisa-l.so">
       <PackagePath>runtimes/linux-x86/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="./../../artifacts/bin64/blosc/libisal.so" Link="runtimes/linux-x64/native/libisal.so">
+    </Content> -->
+    <Content Include="./../../artifacts/bin64/libisa-l.so" Link="runtimes/linux-x64/native/libisa-l.so">
       <PackagePath>runtimes/linux-x64/native</PackagePath>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -55,7 +59,7 @@
 
   <!-- Add build target file in NuGet package for .NET Framework packages.config support. -->
   <ItemGroup>
-    <Content Include="Intel.ISAL.PInvoke.targets">
+    <Content Include="Intel.isa-l.PInvoke.targets">
       <PackagePath>build/net461;buildTransitive/net461</PackagePath>
     </Content>
   </ItemGroup>

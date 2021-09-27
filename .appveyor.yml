@@ -9,7 +9,7 @@ environment:
   ApiKey:
     secure: SeomICfFXAQobyK5uMGeAhb0uljBxicG4Z56pWxWCXA=
   SatelliteJobName: 'Image: Visual Studio 2019'
-  FileName: 'blosc2.dll'
+  FileName: 'isa-l.dll'
 
 branches:
   only:
@@ -26,8 +26,14 @@ install:
 - ps: |
     if ($isLinux) 
     { 
-      sudo apt-get update
-      sudo apt-get --yes install g++-multilib
+      apt-get update
+      # apt-get --yes install g++-multilib
+      apt-get --yes install nasm
+    }
+    elseif ($isWindows)
+    {
+      choco install nasm
+      set PATH="C:\Program Files\NASM";%PATH%
     }
 
 before_build:
@@ -38,46 +44,50 @@ before_build:
 - ps: | 
     if ($isLinux) 
     { 
-      New-Item -Force -ItemType directory -Path "./artifacts/download/bin32/"
-      Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib32" -TargetFilePath "./artifacts/download/bin32/$env:FileName" -ApiKey $env:ApiKey
-      New-Item -Force -ItemType directory -Path "./artifacts/download/bin64/"
-      Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib64" -TargetFilePath "./artifacts/download/bin64/$env:FileName" -ApiKey $env:ApiKey 
+      New-Item -Force -ItemType directory -Path "artifacts/download/bin32/"
+      Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib32" -TargetFilePath "artifacts/download/bin32/$env:FileName" -ApiKey $env:ApiKey
+      New-Item -Force -ItemType directory -Path "artifacts/download/bin64/"
+      Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib64" -TargetFilePath "artifacts/download/bin64/$env:FileName" -ApiKey $env:ApiKey 
     }
 
 build_script:
 - ps: |
     if ($isLinux) 
     { 
-      make --directory "./artifacts/bin32"
-      make --directory "./artifacts/bin64"
-
-      dotnet build ./src/Intel.ISAL.PInvoke/Intel.ISAL.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
+      make -f Makefile.unx
+      dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
     }
     elseif ($isWindows)
     { 
-      msbuild ./artifacts/bin32/blosc/blosc2_shared.vcxproj /p:Configuration=$Env:CONFIGURATION
-      msbuild ./artifacts/bin64/blosc/blosc2_shared.vcxproj /p:Configuration=$Env:CONFIGURATION
+      # 32-bit builds are not working right now because ASM sections for x86 are missing (https://github.com/intel/isa-l/issues/3#issuecomment-549359980).
+      # New-Item -Force -ItemType directory -Path "artifacts/bin32"
+      # cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat`" & cd native/isa-l & nmake -f Makefile.nmake arch=32 & move isa-l.dll ../../artifacts/bin32"
 
-      dotnet build ./src/Intel.ISAL.PInvoke/Intel.ISAL.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
+      # Remove-Item -Recurse -Force native/isa-l/bin
+
+      New-Item -Force -ItemType directory -Path "artifacts/bin64"
+      cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat`" & cd native/isa-l & nmake -f Makefile.nmake & move isa-l.dll ../../artifacts/bin64"
+      
+      dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
     }
 
 after_build:
 - ps: |
     if ($isWindows) 
     { 
-      Push-AppveyorArtifact "./artifacts/bin32/blosc/$Env:CONFIGURATION/$env:FileName" -FileName "lib32"
-      Push-AppveyorArtifact "./artifacts/bin64/blosc/$Env:CONFIGURATION/$env:FileName" -FileName "lib64"
+      Push-AppveyorArtifact "artifacts/bin32/$env:FileName" -FileName "lib32"
+      Push-AppveyorArtifact "artifacts/bin64/$env:FileName" -FileName "lib64"
     }
 
 test_script:
 - ps: |
-    dotnet test ./tests/Intel.ISAL.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
+    dotnet test tests/Intel.ISA_L.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
 
 after_test:
-  - ps: if (-Not $isLinux) { Remove-Item ./artifacts/packages/*.nupkg }
+  - ps: if (-Not $isLinux) { Remove-Item artifacts/packages/*.nupkg }
 
 artifacts:
-  - path: ./artifacts/packages/**/*.nupkg
+  - path: artifacts/packages/**/*.nupkg
 
 deploy:
 

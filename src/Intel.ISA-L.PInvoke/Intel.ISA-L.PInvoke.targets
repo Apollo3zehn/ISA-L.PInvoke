@@ -10,7 +10,7 @@
       <Prefer32Bit>True</Prefer32Bit>
       <Prefer32BitToFixDotnetBug>True</Prefer32BitToFixDotnetBug>
     </PropertyGroup>
-    <Message Condition="'$(Prefer32BitToFixDotnetBug)' == 'True'" Importance="high" Text="Intel.ISAL.PInvoke.1.10.targets: Build property `Prefer32Bit` set to `True` to mitigate https://github.com/dotnet/sdk/issues/1545"/>
+    <Message Condition="'$(Prefer32BitToFixDotnetBug)' == 'True'" Importance="high" Text="Intel.ISA_L.PInvoke.1.10.targets: Build property `Prefer32Bit` set to `True` to mitigate https://github.com/dotnet/sdk/issues/1545"/>
 
     <!-- Place native runtimes in the appropriate platform folder for AnyCPU (64-bit preferred) builds. -->
     <!-- Else, place the runtimes directly in the build output. -->
