@@ -15,6 +15,7 @@ branches:
   only:
   - master
   - dev
+  - fix/ci
 
 configuration:
   - Release
