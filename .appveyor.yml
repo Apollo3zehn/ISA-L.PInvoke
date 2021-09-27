@@ -27,9 +27,9 @@ install:
 - ps: |
     if ($isLinux) 
     { 
-      apt-get update
+      sudo apt-get update
       # apt-get --yes install g++-multilib
-      apt-get --yes install nasm
+      sudo apt-get --yes install nasm
     }
     elseif ($isWindows)
     {
@@ -45,8 +45,8 @@ before_build:
 - ps: | 
     if ($isLinux) 
     { 
-      New-Item -Force -ItemType directory -Path "artifacts/download/bin32/"
-      Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib32" -TargetFilePath "artifacts/download/bin32/$env:FileName" -ApiKey $env:ApiKey
+      #New-Item -Force -ItemType directory -Path "artifacts/download/bin32/"
+      #Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib32" -TargetFilePath "artifacts/download/bin32/$env:FileName" -ApiKey $env:ApiKey
       New-Item -Force -ItemType directory -Path "artifacts/download/bin64/"
       Start-ArtifactDownload -JobName $env:SatelliteJobName -SourceFileName "lib64" -TargetFilePath "artifacts/download/bin64/$env:FileName" -ApiKey $env:ApiKey 
     }
@@ -55,7 +55,12 @@ build_script:
 - ps: |
     if ($isLinux) 
     { 
+      New-Item -Force -ItemType directory -Path "artifacts/bin64"
+      cd native/isa-l
       make -f Makefile.unx
+      cd ../../
+      move isa-l.dll artifacts/bin64
+
       dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
     }
     elseif ($isWindows)
