@@ -58,8 +58,9 @@ build_script:
       New-Item -Force -ItemType directory -Path "artifacts/bin64"
       cd native/isa-l
       make -f Makefile.unx
+      ls
       cd ../../
-      move isa-l.dll artifacts/bin64
+      move libisa-l.so artifacts/bin64
 
       dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
     }
