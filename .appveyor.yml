@@ -76,7 +76,7 @@ after_build:
 - ps: |
     if ($isWindows) 
     { 
-      Push-AppveyorArtifact "artifacts/bin32/$env:FileName" -FileName "lib32"
+      #Push-AppveyorArtifact "artifacts/bin32/$env:FileName" -FileName "lib32"
       Push-AppveyorArtifact "artifacts/bin64/$env:FileName" -FileName "lib64"
     }
 
