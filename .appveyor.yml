@@ -69,7 +69,7 @@ build_script:
       New-Item -Force -ItemType directory -Path "artifacts/bin64"
       cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat`" & cd native/isa-l & nmake -f Makefile.nmake & move isa-l.dll ../../artifacts/bin64"
       
-      dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
+      dotnet build src/Intel.ISA-L.PInvoke/Intel.ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
     }
 
 after_build:
