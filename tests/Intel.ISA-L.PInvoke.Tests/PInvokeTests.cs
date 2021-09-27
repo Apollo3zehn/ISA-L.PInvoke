@@ -13,33 +13,6 @@ namespace Intel.ISA_L.PInvoke.Tests
     public class PInvokeTests
     {
         [Fact]
-        public unsafe void CanAccessNativeLib()
-        {
-            // Arrange
-            Directory.EnumerateFiles("./runtimes/", "*isa-l.*", SearchOption.AllDirectories).ToList().ForEach(filePath =>
-            {
-                if (filePath.Contains(RuntimeEnvironment.RuntimeArchitecture))
-                {
-                    File.Copy(filePath, Path.GetFileName(filePath), true);
-                }
-            });
-
-            var length = Unsafe.SizeOf<inflate_state>();
-            var nativeBytes = Marshal.AllocHGlobal(Unsafe.SizeOf<inflate_state>());
-            var state = new Span<inflate_state>(nativeBytes.ToPointer(), length);
-
-            state[0].read_in = 99;
-
-            // Act
-            Isal.isal_inflate_init(nativeBytes);
-
-            // Assert
-            Assert.Equal(0UL, state[0].read_in);
-
-            Marshal.FreeHGlobal(nativeBytes);
-        }
-
-        [Fact]
         public unsafe void CanInflate()
         {
             // Arrange
