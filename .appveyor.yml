@@ -61,7 +61,7 @@ build_script:
       move bin/libisal.so ../../artifacts/bin64/libisa-l.so
       cd ../../
 
-      dotnet build src/Intel.ISA_L.PInvoke/Intel.ISA_L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
+      dotnet build src/Intel.ISA-L.PInvoke/Intel.ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
     }
     elseif ($isWindows)
     { 
