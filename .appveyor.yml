@@ -82,7 +82,7 @@ after_build:
 
 test_script:
 - ps: |
-    dotnet test tests/Intel.ISA_L.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
+    dotnet test tests/Intel.ISA-L.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
 
 after_test:
   - ps: if (-Not $isLinux) { Remove-Item artifacts/packages/*.nupkg }
