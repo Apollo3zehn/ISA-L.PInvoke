@@ -74,7 +74,7 @@ namespace ISA_L.PInvoke.Tests
             Assert.True(actual.SequenceEqual(expected));
         }
 
-        public byte[] GetDeflatedData(byte[] expected)
+        private byte[] GetDeflatedData(byte[] expected)
         {
             using var originalStream = new MemoryStream(expected);
             using var compressedStream = new MemoryStream();
