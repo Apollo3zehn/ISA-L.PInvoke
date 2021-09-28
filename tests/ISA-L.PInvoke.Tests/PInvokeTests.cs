@@ -45,7 +45,7 @@ namespace ISA_L.PInvoke.Tests
             var chunkSize = 30; /* to simulate buffered reads */
             var bufferIn = deflatedData.AsSpan();
 
-            fixed (byte* ptrOut = actual.AsSpan())
+            fixed (byte* ptrOut = actual)
             {
                 while (bufferIn.Length > 0)
                 {
