@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Description>A very limited and inofficial .NET Standard wrapper for the Intel Intelligent Storage Acceleration Library (ISA-L, 64-bit only).</Description>
     <PackageTags>Intel ISA-L PInvoke .NETStandard Windows Linux</PackageTags>
-    <PackageId>ISA-L.PInvoke</PackageId>
+    <PackageId>Intrinsics.ISA-L.PInvoke</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
