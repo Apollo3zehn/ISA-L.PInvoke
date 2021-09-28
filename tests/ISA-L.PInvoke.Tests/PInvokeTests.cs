@@ -47,7 +47,7 @@ namespace ISA_L.PInvoke.Tests
 
             fixed (byte* ptrOut = actual)
             {
-                while (bufferIn.Length > 0)
+                while (!bufferIn.IsEmpty)
                 {
                     fixed (byte* ptrIn = bufferIn)
                     {
