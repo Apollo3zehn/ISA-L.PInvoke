@@ -3,6 +3,7 @@
   <PropertyGroup>
     <Description>A very limited and inofficial .NET Standard wrapper for the Intel Intelligent Storage Acceleration Library (ISA-L, 64-bit only).</Description>
     <PackageTags>Intel ISA-L PInvoke .NETStandard Windows Linux</PackageTags>
+    <PackageId>ISA-L.PInvoke</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
@@ -59,7 +60,7 @@
 
   <!-- Add build target file in NuGet package for .NET Framework packages.config support. -->
   <ItemGroup>
-    <Content Include="Intel.isa-l.PInvoke.targets">
+    <Content Include="ISA-L.PInvoke.targets">
       <PackagePath>build/net461;buildTransitive/net461</PackagePath>
     </Content>
   </ItemGroup>

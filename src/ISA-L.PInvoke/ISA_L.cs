@@ -4,7 +4,7 @@ using System.Security;
 
 namespace ISA_L.PInvoke
 {
-    public static class Isal
+    public static class ISA_L
     {
         [SuppressUnmanagedCodeSecurity]
         [DllImport(Constants.NATIVE_DLL_NAME)]

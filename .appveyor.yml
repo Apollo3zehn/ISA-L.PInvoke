@@ -15,7 +15,6 @@ branches:
   only:
   - main
   - dev
-  - fix/ci
 
 configuration:
   - Release
@@ -61,7 +60,7 @@ build_script:
       move bin/libisal.so ../../artifacts/bin64/libisa-l.so
       cd ../../
 
-      dotnet build src/Intel.ISA-L.PInvoke/Intel.ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
+      dotnet build src/ISA-L.PInvoke/ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG /p:IsPublicBuild=True
     }
     elseif ($isWindows)
     { 
@@ -74,7 +73,7 @@ build_script:
       New-Item -Force -ItemType directory -Path "artifacts/bin64"
       cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat`" & cd native/isa-l & nmake -f Makefile.nmake & move isa-l.dll ../../artifacts/bin64"
       
-      dotnet build src/Intel.ISA-L.PInvoke/Intel.ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
+      dotnet build src/ISA-L.PInvoke/ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
     }
 
 after_build:
@@ -87,7 +86,7 @@ after_build:
 
 test_script:
 - ps: |
-    dotnet test tests/Intel.ISA-L.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
+    dotnet test tests/ISA-L.PInvoke.Tests -c $Env:CONFIGURATION /p:BuildProjectReferences=false
 
 after_test:
   - ps: if (-Not $isLinux) { Remove-Item artifacts/packages/*.nupkg }

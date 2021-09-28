@@ -1,4 +1,3 @@
-using ISA_L.PInvoke;
 using System;
 using System.IO;
 using System.IO.Compression;
@@ -8,7 +7,7 @@ using System.Runtime.InteropServices;
 using Xunit;
 using RuntimeEnvironment = Microsoft.DotNet.PlatformAbstractions.RuntimeEnvironment;
 
-namespace Intel.ISA_L.PInvoke.Tests
+namespace ISA_L.PInvoke.Tests
 {
     public class PInvokeTests
     {
@@ -41,7 +40,7 @@ namespace Intel.ISA_L.PInvoke.Tests
             // Act
             var actual = new byte[expected.Length];
 
-            Isal.isal_inflate_init(state_ptr);
+            ISA_L.isal_inflate_init(state_ptr);
 
             var chunkSize = 30; /* to simulate buffered reads */
             var bufferIn = deflatedData.AsSpan();
@@ -62,7 +61,7 @@ namespace Intel.ISA_L.PInvoke.Tests
                         state[0].avail_out = (uint)actual.Length + 10;
                     }
 
-                    var status = Isal.isal_inflate(state_ptr);
+                    var status = ISA_L.isal_inflate(state_ptr);
 
                     if (status != inflate_return_values.ISAL_DECOMP_OK)
                         throw new Exception($"Error encountered while decompressing: {status}.");
