@@ -11,9 +11,9 @@
 
   <PropertyGroup>
     <Major Condition="$(Major) == ''">2</Major>
-    <Minor Condition="$(Minor) == ''">0</Minor>
-    <Revision Condition="$(Revision) == ''">0</Revision>
-    <VersionSuffix Condition="$(VersionSuffix) == ''">beta.5.update3</VersionSuffix>
+    <Minor Condition="$(Minor) == ''">30</Minor>
+    <Revision Condition="$(Revision) == ''">000</Revision>
+    <VersionSuffix Condition="$(VersionSuffix) == ''">preview.1</VersionSuffix>
   </PropertyGroup>
 
   <PropertyGroup>
