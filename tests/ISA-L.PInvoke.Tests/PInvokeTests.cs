@@ -58,7 +58,7 @@ namespace ISA_L.PInvoke.Tests
                         }
 
                         state[0].next_out = ptrOut;
-                        state[0].avail_out = (uint)actual.Length + 10;
+                        state[0].avail_out = (uint)actual.Length;
                     }
 
                     var status = ISAL.isal_inflate(state_ptr);
