@@ -40,7 +40,7 @@ namespace ISA_L.PInvoke.Tests
             // Act
             var actual = new byte[expected.Length];
 
-            ISA_L.isal_inflate_init(state_ptr);
+            ISAL.isal_inflate_init(state_ptr);
 
             var chunkSize = 30; /* to simulate buffered reads */
             var bufferIn = deflatedData.AsSpan();
@@ -61,7 +61,7 @@ namespace ISA_L.PInvoke.Tests
                         state[0].avail_out = (uint)actual.Length + 10;
                     }
 
-                    var status = ISA_L.isal_inflate(state_ptr);
+                    var status = ISAL.isal_inflate(state_ptr);
 
                     if (status != inflate_return_values.ISAL_DECOMP_OK)
                         throw new Exception($"Error encountered while decompressing: {status}.");
