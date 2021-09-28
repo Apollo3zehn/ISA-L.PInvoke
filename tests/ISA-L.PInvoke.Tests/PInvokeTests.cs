@@ -54,7 +54,7 @@ namespace ISA_L.PInvoke.Tests
                         if (state[0].avail_in == 0)
                         {
                             state[0].next_in = ptrIn;
-                            state[0].avail_in = (uint)deflatedData.Length;
+                            state[0].avail_in = (uint)bufferIn.Length;
                         }
 
                         state[0].next_out = ptrOut;
@@ -71,6 +71,7 @@ namespace ISA_L.PInvoke.Tests
             }
 
             // Assert
+            Assert.Equal(isal_block_state.ISAL_BLOCK_FINISH, state[0].block_state);
             Assert.True(actual.SequenceEqual(expected));
         }
 

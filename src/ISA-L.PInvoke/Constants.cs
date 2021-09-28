@@ -5,6 +5,10 @@ namespace ISA_L.PInvoke
         public const string NATIVE_DLL_NAME = "isa-l";
         public const string WindowsDLLPath = @"runtimes\win-x{0}\native";
 
+        public const int SIZE_OF_INFLATE_HUFF_CODE_LARGE = 18912;
+        public const int SIZE_OF_INFLATE_HUFF_CODE_SMALL = 2208;
+        public const int HUFF_CODE_OFFSET = Constants.SIZE_OF_INFLATE_HUFF_CODE_LARGE + Constants.SIZE_OF_INFLATE_HUFF_CODE_SMALL;
+
         /* Inflate Implementation Specific Defines */
         public const int ISAL_DECODE_LONG_BITS = 12;
         public const int ISAL_DECODE_SHORT_BITS = 10;
