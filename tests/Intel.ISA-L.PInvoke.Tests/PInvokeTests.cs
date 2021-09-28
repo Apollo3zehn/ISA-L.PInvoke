@@ -34,31 +34,41 @@ namespace Intel.ISA_L.PInvoke.Tests
 
             /* prepare inflate_state */
             var length = Unsafe.SizeOf<inflate_state>();
-            var nativeBytes = Marshal.AllocHGlobal(Unsafe.SizeOf<inflate_state>());
-            var state = new Span<inflate_state>(nativeBytes.ToPointer(), length);
+            var state_ptr = Marshal.AllocHGlobal(Unsafe.SizeOf<inflate_state>());
+            new Span<byte>(state_ptr.ToPointer(), length).Fill(0);
+            var state = new Span<inflate_state>(state_ptr.ToPointer(), length);
 
             // Act
             var actual = new byte[expected.Length];
 
-            Isal.isal_inflate_init(nativeBytes);
+            Isal.isal_inflate_init(state_ptr);
 
-            fixed (byte* ptrIn = deflatedData.AsSpan(), ptrOut = actual.AsSpan())
+            var chunkSize = 30; /* to simulate buffered reads */
+            var bufferIn = deflatedData.AsSpan();
+
+            fixed (byte* ptrOut = actual.AsSpan())
             {
-                if (state[0].avail_in == 0)
+                while (bufferIn.Length > 0)
                 {
-                    state[0].next_in = ptrIn;
-                    state[0].avail_in = (uint)deflatedData.Length;
+                    fixed (byte* ptrIn = bufferIn)
+                    {
+                        if (state[0].avail_in == 0)
+                        {
+                            state[0].next_in = ptrIn;
+                            state[0].avail_in = (uint)deflatedData.Length;
+                        }
+
+                        state[0].next_out = ptrOut;
+                        state[0].avail_out = (uint)actual.Length + 10;
+                    }
+
+                    var status = Isal.isal_inflate(state_ptr);
+
+                    if (status != inflate_return_values.ISAL_DECOMP_OK)
+                        throw new Exception($"Error encountered while decompressing: {status}.");
+
+                    bufferIn = bufferIn.Slice(Math.Min(chunkSize, bufferIn.Length));
                 }
-
-                state[0].next_out = ptrOut;
-                state[0].avail_out = (uint)actual.Length + 10;
-
-                var status = Isal.isal_inflate(nativeBytes);
-
-#warning state[0].next_out - state[0].avail_out = actual number of available bytes
-
-                if (status != inflate_return_values.ISAL_DECOMP_OK)
-                    throw new Exception($"Error encountered while decompressing: {status}.");
             }
 
             // Assert
