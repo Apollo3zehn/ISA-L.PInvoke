@@ -34,12 +34,12 @@ namespace ISA_L.PInvoke
         [FieldOffset(80 + Constants.HUFF_CODE_OFFSET)] public int write_overflow_len;
         [FieldOffset(84 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_length; // Length left to copy when outbuffer overflow occurred.
         [FieldOffset(88 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_distance; // Lookback distance when outbuffer overflow occurred.
-        [FieldOffset(92)] public short wrapper_flag;
-        [FieldOffset(94)] public short tmp_in_size; // Number of bytes in tmp_in_buffer
-        [FieldOffset(96)] public int tmp_out_valid; // Number of bytes in tmp_out_buffer
-        [FieldOffset(100)] public int tmp_out_processed; // Number of bytes processed in tmp_out_buffer
-        [FieldOffset(104)] public fixed byte tmp_in_buffer[Constants.ISAL_DEF_MAX_HDR_SIZE]; // Temporary buffer containing data from the input stream.
-        [FieldOffset(104 + Constants.ISAL_DEF_MAX_HDR_SIZE)] public fixed byte tmp_out_buffer[2 * Constants.ISAL_DEF_HIST_SIZE + Constants.ISAL_LOOK_AHEAD]; // Temporary buffer containing data from the output stream.
+        [FieldOffset(92 + Constants.HUFF_CODE_OFFSET)] public short wrapper_flag;
+        [FieldOffset(94 + Constants.HUFF_CODE_OFFSET)] public short tmp_in_size; // Number of bytes in tmp_in_buffer
+        [FieldOffset(96 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_valid; // Number of bytes in tmp_out_buffer
+        [FieldOffset(100 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_processed; // Number of bytes processed in tmp_out_buffer
+        [FieldOffset(104 + Constants.HUFF_CODE_OFFSET)]                                   public fixed byte tmp_in_buffer[Constants.ISAL_DEF_MAX_HDR_SIZE]; // Temporary buffer containing data from the input stream.
+        [FieldOffset(104 + Constants.HUFF_CODE_OFFSET + Constants.ISAL_DEF_MAX_HDR_SIZE)] public fixed byte tmp_out_buffer[2 * Constants.ISAL_DEF_HIST_SIZE + Constants.ISAL_LOOK_AHEAD]; // Temporary buffer containing data from the output stream.
     }
 
     [StructLayout(LayoutKind.Explicit)]
