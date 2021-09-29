@@ -15,4 +15,7 @@ Pull requests to expose more P/Invoke signatures or to improve already available
 
 ---
 
-*based on: https://01.org/intel%C2%AE-storage-acceleration-library-open-source-version/documentation/isa-l-2.28-api-doc*
+further links:
+- https://ieeexplore.ieee.org/document/8712745
+- https://github.com/intel/isa-l
+- https://01.org/intel%C2%AE-storage-acceleration-library-open-source-version/documentation/isa-l-2.28-api-doc*
