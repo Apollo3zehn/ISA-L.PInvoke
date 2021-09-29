@@ -18,9 +18,7 @@ namespace ISA_L.PInvoke.Tests
             Directory.EnumerateFiles("./runtimes/", "*isa-l.*", SearchOption.AllDirectories).ToList().ForEach(filePath =>
             {
                 if (filePath.Contains(RuntimeEnvironment.RuntimeArchitecture))
-                {
                     File.Copy(filePath, Path.GetFileName(filePath), true);
-                }
             });
 
             /* prepare deflated data */

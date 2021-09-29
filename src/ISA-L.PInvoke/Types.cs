@@ -3,9 +3,6 @@
 namespace ISA_L.PInvoke
 {
     // get total size: https://stackoverflow.com/questions/20979565/how-can-i-print-the-result-of-sizeof-at-compile-time-in-c
-
-    // sizeof inflate_huff_code_large = 18912
-    // sizeof inflate_huff_code_small = 2208
     // sizeof isal_block_state = 4
 
     [StructLayout(LayoutKind.Explicit)]
@@ -19,8 +16,8 @@ namespace ISA_L.PInvoke
         [FieldOffset(32)] public uint avail_in; // Number of bytes available at next_in.
         [FieldOffset(36)] public int read_in_length; // Bits in read_in.
 
-        [FieldOffset(40)] public fixed byte lit_huff_code[18912]; // Structure for decoding lit/len symbols.
-        [FieldOffset(40 + Constants.SIZE_OF_INFLATE_HUFF_CODE_LARGE)] public fixed byte dist_huff_code[2208]; // Structure for decoding dist symbols
+        [FieldOffset(40)]                                               public inflate_huff_code_large lit_huff_code; // Structure for decoding lit/len symbols.
+        [FieldOffset(40 + Constants.SIZE_OF_INFLATE_HUFF_CODE_LARGE)]   public inflate_huff_code_small dist_huff_code; // Structure for decoding dist symbols
 
         [FieldOffset(40 + Constants.HUFF_CODE_OFFSET)] public isal_block_state block_state; // Current decompression state.
         [FieldOffset(44 + Constants.HUFF_CODE_OFFSET)] public uint dict_length; // Length of dictionary used.
@@ -45,19 +42,19 @@ namespace ISA_L.PInvoke
         [FieldOffset(104 + Constants.ISAL_DEF_MAX_HDR_SIZE)] public fixed byte tmp_out_buffer[2 * Constants.ISAL_DEF_HIST_SIZE + Constants.ISAL_LOOK_AHEAD]; // Temporary buffer containing data from the output stream.
     }
 
-    //[StructLayout(LayoutKind.Explicit)]
-    //public unsafe struct inflate_huff_code_large
-    //{
-    //    [FieldOffset(0)] public fixed uint short_code_lookup [1 << (IsalConstants.ISAL_DECODE_LONG_BITS)];
-    //    [FieldOffset(4)] public fixed ushort long_code_lookup [IsalConstants.ISAL_HUFF_CODE_LARGE_LONG_ALIGNED];
-    //};
+    [StructLayout(LayoutKind.Explicit)]
+    public unsafe struct inflate_huff_code_large
+    {
+        [FieldOffset(0)]                                    public fixed uint short_code_lookup[1 << Constants.ISAL_DECODE_LONG_BITS];
+        [FieldOffset(1 << (Constants.ISAL_DECODE_LONG_BITS + 2))] public fixed ushort long_code_lookup[Constants.ISAL_HUFF_CODE_LARGE_LONG_ALIGNED];
+    };
 
-    //[StructLayout(LayoutKind.Explicit)]
-    //public unsafe struct inflate_huff_code_small
-    //{
-    //    [FieldOffset(0)] public fixed ushort short_code_lookup[1 << (IsalConstants.ISAL_DECODE_SHORT_BITS)];
-    //    [FieldOffset(2)] public fixed ushort long_code_lookup[IsalConstants.ISAL_HUFF_CODE_SMALL_LONG_ALIGNED];
-    //};
+    [StructLayout(LayoutKind.Explicit)]
+    public unsafe struct inflate_huff_code_small
+    {
+        [FieldOffset(0)]                                public fixed ushort short_code_lookup[1 << (Constants.ISAL_DECODE_SHORT_BITS)];
+        [FieldOffset(1 << (Constants.ISAL_DECODE_SHORT_BITS + 1))] public fixed ushort long_code_lookup[Constants.ISAL_HUFF_CODE_SMALL_LONG_ALIGNED];
+    };
 
     public enum isal_block_state : int
     {
