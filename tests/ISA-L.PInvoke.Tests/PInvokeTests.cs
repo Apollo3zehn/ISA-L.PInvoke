@@ -27,7 +27,7 @@ namespace ISA_L.PInvoke.Tests
                 .Select(value => (byte)value)
                 .ToArray();
 
-            var deflatedData = this.GetDeflatedData(expected);
+            var deflatedData = GetDeflatedData(expected);
 
             /* prepare inflate_state */
             var length = Unsafe.SizeOf<inflate_state>();
