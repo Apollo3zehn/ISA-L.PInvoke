@@ -6,7 +6,8 @@
 This lib provides a very limited collection of P/Invoke signatures for Linux and Windows to enable working with [Intel Intelligent Storage Acceleration Library](https://github.com/intel/isa-l) using .NET.
 
 Currently, only the following features are supported:
-- De-compression - Fast inflate-compatible data compression ([example 1](https://github.com/Apollo3zehn/ISA-L.PInvoke/blob/main/tests/ISA-L.PInvoke.Tests/PInvokeTests.cs#L16), [example 2](https://github.com/intel/isa-l/blob/f980b366556d785ea7701a529c6d1c3b33d05502/programs/igzip_cli.c#L921-L944))
+- Compression - Fast deflate-compatible data compression ([example 1](TBD), [example 2](https://github.com/intel/isa-l/blob/e53db8563180712ec5f1759ec9d52b844c86fa30/programs/igzip_cli.c#L754-L779))
+- De-compression - Fast inflate-compatible data compression ([example 1](https://github.com/Apollo3zehn/ISA-L.PInvoke/blob/main/tests/ISA-L.PInvoke.Tests/PInvokeTests.cs#L15), [example 2](https://github.com/intel/isa-l/blob/e53db8563180712ec5f1759ec9d52b844c86fa30/programs/igzip_cli.c#L921-L944))
 
 ---
 **NOTE**

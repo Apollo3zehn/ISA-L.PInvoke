@@ -8,20 +8,32 @@ namespace ISA_L.PInvoke
         public const int SIZE_OF_INFLATE_HUFF_CODE_SMALL = (1 << ISAL_DECODE_SHORT_BITS) * 2 + ISAL_HUFF_CODE_SMALL_LONG_ALIGNED * 2;
         public const int HUFF_CODE_OFFSET = SIZE_OF_INFLATE_HUFF_CODE_LARGE + SIZE_OF_INFLATE_HUFF_CODE_SMALL;
 
-        /* Inflate Implementation Specific Defines */
-        public const int ISAL_DECODE_LONG_BITS = 12;
-        public const int ISAL_DECODE_SHORT_BITS = 10;
-
         /* Deflate Compression Standard Defines */
-        public const int ISAL_DEF_HIST_SIZE = 32 * 1024;
+        public const int IGZIP_K = 1024;
         public const int ISAL_DEF_MAX_HDR_SIZE = 328;
+        public const int ISAL_DEF_HIST_SIZE = 32 * IGZIP_K;
+        public const int ISAL_DEF_MAX_MATCH = 258;
 
         public const int ISAL_DEF_LIT_SYMBOLS = 257;
         public const int ISAL_DEF_LEN_SYMBOLS = 29;
         public const int ISAL_DEF_DIST_SYMBOLS = 30;
         public const int ISAL_DEF_LIT_LEN_SYMBOLS = ISAL_DEF_LIT_SYMBOLS + ISAL_DEF_LEN_SYMBOLS;
 
-        public const int ISAL_LOOK_AHEAD = (258 + 31) & ~31;
+        public const int ISAL_LOOK_AHEAD = (ISAL_DEF_MAX_MATCH + 31) & ~31;        
+
+        /* Deflate Implementation Specific Defines */
+        public const int IGZIP_LVL0_HASH_SIZE = 8 * IGZIP_K;
+
+        public const int IGZIP_DIST_TABLE_SIZE = 2;
+        public const int IGZIP_DECODE_OFFSET = 0;
+        public const int IGZIP_LEN_TABLE_SIZE = 256;
+        public const int IGZIP_LIT_TABLE_SIZE = ISAL_DEF_LIT_SYMBOLS;
+
+        /* Inflate Implementation Specific Defines */
+        public const int IGZIP_HIST_SIZE = ISAL_DEF_HIST_SIZE;
+
+        public const int ISAL_DECODE_LONG_BITS = 12;
+        public const int ISAL_DECODE_SHORT_BITS = 10;
 
         /* Inflate structures */
         public const int ISAL_L_REM = 21 - ISAL_DECODE_LONG_BITS;
