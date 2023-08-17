@@ -23,8 +23,8 @@ public class PInvokeTests : IClassFixture<PInvokeFixture>
 
         try
         {
-            new Span<byte>(statePtr.ToPointer(), length).Fill(0);
             var stateSpan = new Span<inflate_state>(statePtr.ToPointer(), 1);
+            stateSpan.Clear();
             ref inflate_state state = ref stateSpan[0];
 
             /* prepare deflated data */
@@ -103,8 +103,8 @@ public class PInvokeTests : IClassFixture<PInvokeFixture>
 
         try
         {
-            new Span<byte>(streamPtr.ToPointer(), length).Fill(0);
             var streamSpan = new Span<isal_zstream>(streamPtr.ToPointer(), 1);
+            streamSpan.Clear();
             ref isal_zstream stream = ref streamSpan[0];
 
             /* prepare inflated data */
