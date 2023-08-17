@@ -36,6 +36,12 @@ namespace ISA_L.PInvoke
         public const int IGZIP_LEN_TABLE_SIZE = 256;
         public const int IGZIP_LIT_TABLE_SIZE = ISAL_DEF_LIT_SYMBOLS;
 
+        public const int IGZIP_DEFLATE = 0;
+        public const int IGZIP_GZIP = 1;
+        public const int IGZIP_GZIP_NO_HDR = 2;
+        public const int IGZIP_ZLIB = 3;
+        public const int IGZIP_ZLIB_NO_HDR = 4;
+
         /* Inflate Implementation Specific Defines */
         public const int IGZIP_HIST_SIZE = ISAL_DEF_HIST_SIZE;
 
