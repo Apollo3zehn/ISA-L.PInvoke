@@ -2,13 +2,13 @@ version: '{build}'
 clone_depth: 1
 
 image:
-- Visual Studio 2019
+- Visual Studio 2022
 - Ubuntu
 
 environment:
   ApiKey:
     secure: SeomICfFXAQobyK5uMGeAhb0uljBxicG4Z56pWxWCXA=
-  SatelliteJobName: 'Image: Visual Studio 2019'
+  SatelliteJobName: 'Image: Visual Studio 2022'
   FileName: 'isa-l.dll'
 
 branches:
@@ -66,12 +66,12 @@ build_script:
     { 
       # 32-bit builds are not working right now because ASM sections for x86 are missing (https://github.com/intel/isa-l/issues/3#issuecomment-549359980).
       # New-Item -Force -ItemType directory -Path "artifacts/bin32"
-      # cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars32.bat`" & cd native/isa-l & nmake -f Makefile.nmake arch=32 & move isa-l.dll ../../artifacts/bin32"
+      # cmd.exe /c "`"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat`" & cd native/isa-l & nmake -f Makefile.nmake arch=32 & move isa-l.dll ../../artifacts/bin32"
 
       # Remove-Item -Recurse -Force native/isa-l/bin
 
       New-Item -Force -ItemType directory -Path "artifacts/bin64"
-      cmd.exe /c "`"C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Auxiliary\Build\vcvars64.bat`" & cd native/isa-l & nmake -f Makefile.nmake & move isa-l.dll ../../artifacts/bin64"
+      cmd.exe /c "`"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars64.bat`" & cd native/isa-l & nmake -f Makefile.nmake & move isa-l.dll ../../artifacts/bin64"
       
       dotnet build src/ISA-L.PInvoke/ISA-L.PInvoke.csproj -c $Env:CONFIGURATION /p:Build=$Env:APPVEYOR_BUILD_NUMBER /p:IsFinalBuild=$Env:APPVEYOR_REPO_TAG
     }
@@ -111,7 +111,7 @@ deploy:
   - provider: NuGet
     server: https://www.nuget.org/api/v2/package
     api_key:
-      secure: /+MsVllJKX6M/MHBmCXaBFf1ttNDSqO04J7frGM81UUgBwfDUs6Wn4WufiU0Wl3/
+      secure: sRqSXx9AEunKwTrsXo9ppB8cGnMXaJI+ICjvoTaKLBS8curIxXuKxfzcw7iKCPjg
     skip_symbols: true
     artifact: /.*\.nupkg/ 
     on:
