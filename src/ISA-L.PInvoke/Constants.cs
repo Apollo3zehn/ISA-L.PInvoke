@@ -22,7 +22,14 @@ namespace ISA_L.PInvoke
         public const int ISAL_LOOK_AHEAD = (ISAL_DEF_MAX_MATCH + 31) & ~31;        
 
         /* Deflate Implementation Specific Defines */
+        public const int IGZIP_HASH8K_HASH_SIZE = 8 * IGZIP_K;
+        public const int IGZIP_HASH_HIST_SIZE = IGZIP_HIST_SIZE;
+        public const int IGZIP_HASH_MAP_HASH_SIZE = IGZIP_HIST_SIZE;
+
         public const int IGZIP_LVL0_HASH_SIZE = 8 * IGZIP_K;
+        public const int IGZIP_LVL1_HASH_SIZE = IGZIP_HASH8K_HASH_SIZE;
+        public const int IGZIP_LVL2_HASH_SIZE = IGZIP_HASH_HIST_SIZE;
+        public const int IGZIP_LVL3_HASH_SIZE = IGZIP_HASH_MAP_HASH_SIZE;
 
         public const int IGZIP_DIST_TABLE_SIZE = 2;
         public const int IGZIP_DECODE_OFFSET = 0;
@@ -34,6 +41,30 @@ namespace ISA_L.PInvoke
 
         public const int ISAL_DECODE_LONG_BITS = 12;
         public const int ISAL_DECODE_SHORT_BITS = 10;
+
+        /* Compression structures */
+        public const int ISAL_DEF_MIN_LEVEL = 0;
+        public const int ISAL_DEF_MAX_LEVEL = 3;
+
+        public const int ISAL_DEF_LVL0_REQ = 0;
+        public const int ISAL_DEF_LVL1_REQ = 4 * IGZIP_K + 2 * IGZIP_LVL1_HASH_SIZE;
+        public const int ISAL_DEF_LVL1_TOKEN_SIZE = 4;
+        public const int ISAL_DEF_LVL2_REQ = 4 * IGZIP_K + 2 * IGZIP_LVL2_HASH_SIZE;
+        public const int ISAL_DEF_LVL2_TOKEN_SIZE = 4;
+        public const int ISAL_DEF_LVL3_REQ = 4 * IGZIP_K + 4 * 4 * IGZIP_K + 2 * IGZIP_LVL3_HASH_SIZE;
+        public const int ISAL_DEF_LVL3_TOKEN_SIZE = 4;
+
+        public const int ISAL_DEF_LVL0_LARGE = ISAL_DEF_LVL0_REQ;
+        public const int ISAL_DEF_LVL0_DEFAULT = ISAL_DEF_LVL0_REQ;
+
+        public const int ISAL_DEF_LVL1_LARGE = ISAL_DEF_LVL1_REQ + ISAL_DEF_LVL1_TOKEN_SIZE * 64 * IGZIP_K;
+        public const int ISAL_DEF_LVL1_DEFAULT = ISAL_DEF_LVL1_LARGE;
+
+        public const int ISAL_DEF_LVL2_LARGE = ISAL_DEF_LVL2_REQ + ISAL_DEF_LVL2_TOKEN_SIZE * 64 * IGZIP_K;
+        public const int ISAL_DEF_LVL2_DEFAULT = ISAL_DEF_LVL2_LARGE;
+
+        public const int ISAL_DEF_LVL3_LARGE = ISAL_DEF_LVL3_REQ + ISAL_DEF_LVL3_TOKEN_SIZE * 64 * IGZIP_K;
+        public const int ISAL_DEF_LVL3_DEFAULT = ISAL_DEF_LVL3_LARGE;
 
         /* Inflate structures */
         public const int ISAL_L_REM = 21 - ISAL_DECODE_LONG_BITS;

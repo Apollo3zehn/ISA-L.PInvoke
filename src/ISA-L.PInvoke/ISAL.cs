@@ -10,19 +10,23 @@ namespace ISA_L.PInvoke
 
         [SuppressUnmanagedCodeSecurity]
         [DllImport(Constants.NATIVE_DLL_NAME)]
-        public static extern unsafe int isal_inflate_init(IntPtr state);
+        public static extern unsafe inflate_return_values isal_inflate(IntPtr state);
+
+        [SuppressUnmanagedCodeSecurity]
+        [DllImport(Constants.NATIVE_DLL_NAME)]
+        public static extern unsafe void isal_inflate_init(IntPtr state);
 
         [SuppressUnmanagedCodeSecurity]
         [DllImport(Constants.NATIVE_DLL_NAME)]
         public static extern unsafe int isal_inflate_reset(IntPtr state);
 
-        [SuppressUnmanagedCodeSecurity]
-        [DllImport(Constants.NATIVE_DLL_NAME)]
-        public static extern unsafe inflate_return_values isal_inflate(IntPtr state);
-
         #endregion
 
         #region Deflate
+
+        [SuppressUnmanagedCodeSecurity]
+        [DllImport(Constants.NATIVE_DLL_NAME)]
+        public static extern unsafe void isal_deflate_init(IntPtr stream);
 
         [SuppressUnmanagedCodeSecurity]
         [DllImport(Constants.NATIVE_DLL_NAME)]
@@ -31,10 +35,6 @@ namespace ISA_L.PInvoke
         [SuppressUnmanagedCodeSecurity]
         [DllImport(Constants.NATIVE_DLL_NAME)]
         public static extern unsafe int isal_deflate_reset(IntPtr stream);
-
-        [SuppressUnmanagedCodeSecurity]
-        [DllImport(Constants.NATIVE_DLL_NAME)]
-        public static extern unsafe int isal_deflate_init(IntPtr stream);
 
         #endregion
     }

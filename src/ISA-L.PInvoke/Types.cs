@@ -5,9 +5,10 @@ namespace ISA_L.PInvoke
     #region Inflate
 
     // get offset of struct member:
+    // #include <stdio.h>
     // printf("offset: %ld\n", (long)offsetof(struct isal_zstate, total_in_start));
 
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Explicit, Size = 87368)]
     public unsafe struct inflate_state
     {
         [FieldOffset(0)] public byte* next_out; // Next output Byte.
@@ -29,19 +30,19 @@ namespace ISA_L.PInvoke
         [FieldOffset(60 + Constants.HUFF_CODE_OFFSET)] public uint hist_bits; // Log base 2 of maximum lookback distance.
 
         [FieldOffset(64 + Constants.HUFF_CODE_OFFSET)] public int type0_block_len; // Length left to read of type 0 block when outbuffer overflow occurred
-        [FieldOffset(68 + Constants.HUFF_CODE_OFFSET)] public int count; // Count of bytes remaining to be parsed
-        [FieldOffset(72 + Constants.HUFF_CODE_OFFSET)] public uint dict_id;
+        [FieldOffset(64 + Constants.HUFF_CODE_OFFSET)] public int count; // Count of bytes remaining to be parsed
+        [FieldOffset(64 + Constants.HUFF_CODE_OFFSET)] public uint dict_id;
 
-        [FieldOffset(76 + Constants.HUFF_CODE_OFFSET)] public int write_overflow_lits;
-        [FieldOffset(80 + Constants.HUFF_CODE_OFFSET)] public int write_overflow_len;
-        [FieldOffset(84 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_length; // Length left to copy when outbuffer overflow occurred.
-        [FieldOffset(88 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_distance; // Lookback distance when outbuffer overflow occurred.
-        [FieldOffset(92 + Constants.HUFF_CODE_OFFSET)] public short wrapper_flag;
-        [FieldOffset(94 + Constants.HUFF_CODE_OFFSET)] public short tmp_in_size; // Number of bytes in tmp_in_buffer
-        [FieldOffset(96 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_valid; // Number of bytes in tmp_out_buffer
-        [FieldOffset(100 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_processed; // Number of bytes processed in tmp_out_buffer
-        [FieldOffset(104 + Constants.HUFF_CODE_OFFSET)]                                   public fixed byte tmp_in_buffer[Constants.ISAL_DEF_MAX_HDR_SIZE]; // Temporary buffer containing data from the input stream.
-        [FieldOffset(104 + Constants.HUFF_CODE_OFFSET + Constants.ISAL_DEF_MAX_HDR_SIZE)] public fixed byte tmp_out_buffer[2 * Constants.ISAL_DEF_HIST_SIZE + Constants.ISAL_LOOK_AHEAD]; // Temporary buffer containing data from the output stream.
+        [FieldOffset(68 + Constants.HUFF_CODE_OFFSET)] public int write_overflow_lits;
+        [FieldOffset(72 + Constants.HUFF_CODE_OFFSET)] public int write_overflow_len;
+        [FieldOffset(76 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_length; // Length left to copy when outbuffer overflow occurred.
+        [FieldOffset(80 + Constants.HUFF_CODE_OFFSET)] public int copy_overflow_distance; // Lookback distance when outbuffer overflow occurred.
+        [FieldOffset(84 + Constants.HUFF_CODE_OFFSET)] public short wrapper_flag;
+        [FieldOffset(86 + Constants.HUFF_CODE_OFFSET)] public short tmp_in_size; // Number of bytes in tmp_in_buffer
+        [FieldOffset(88 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_valid; // Number of bytes in tmp_out_buffer
+        [FieldOffset(92 + Constants.HUFF_CODE_OFFSET)] public int tmp_out_processed; // Number of bytes processed in tmp_out_buffer
+        [FieldOffset(96 + Constants.HUFF_CODE_OFFSET)]                                   public fixed byte tmp_in_buffer[Constants.ISAL_DEF_MAX_HDR_SIZE]; // Temporary buffer containing data from the input stream.
+        [FieldOffset(96 + Constants.HUFF_CODE_OFFSET + Constants.ISAL_DEF_MAX_HDR_SIZE)] public fixed byte tmp_out_buffer[2 * Constants.ISAL_DEF_HIST_SIZE + Constants.ISAL_LOOK_AHEAD]; // Temporary buffer containing data from the output stream.
     }
 
     [StructLayout(LayoutKind.Explicit)]
@@ -176,7 +177,7 @@ namespace ISA_L.PInvoke
         [FieldOffset(2200)] public fixed byte dcodes_sizes[30 - Constants.IGZIP_DECODE_OFFSET]; /* distance code length */
     };
 
-    [StructLayout(LayoutKind.Explicit)]
+    [StructLayout(LayoutKind.Explicit, Size = 82384)]
     public unsafe struct isal_zstream 
     {
         [FieldOffset(0)] public byte* next_in;                  /* Next input byte */
